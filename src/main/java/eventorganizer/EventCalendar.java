@@ -1,5 +1,9 @@
 package eventorganizer;
 
+/**
+ * This class defines ...
+ * @author Patryk Dziedzic, Aveesh Patel
+ */
 public class EventCalendar
 {
     private Event [] events; //the array holding the list of events
