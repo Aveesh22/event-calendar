@@ -20,7 +20,7 @@ public class Date implements Comparable<Date>
 
     /**
      * A parameterized constructor that takes a string in the form of "mm/dd/yyyy"
-     * @param date
+     * @param date string date as "mm/dd/yyyy"
      */
     public Date(String date) {}
 
@@ -62,7 +62,7 @@ public class Date implements Comparable<Date>
 
 
     /**
-     * Testbed main to exercise the isValid method.
+     * Testbed main to exercise the isValid() method.
      * @param args command line arguments.
      */
     public static void main(String[] args) {

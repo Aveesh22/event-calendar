@@ -13,10 +13,10 @@ public class Event implements Comparable<Event>
     private int duration; //in minutes
 
     /**
-     * Must override the equals method in Object class, because the
-     * equals method in Object is using == to compare objects.
-     * @param obj
-     * @return
+     * Overrides the equals() method in the Object class such that 2 events
+     * are equal if their dates, timeslots, and locations are equal.
+     * @param obj the second event to compare with
+     * @return boolean indicating if the 2 events equal
      */
     @Override
     public boolean equals(Object obj) {
@@ -29,4 +29,34 @@ public class Event implements Comparable<Event>
         return false;
     }
 
+    /**
+     * Overrides the toString() method to return a textual representation of an event.
+     * of an event in the following format:
+     * [Event Date: 10/21/2023] [Start: 2:00pm] [End: 3:00pm] @HLL114 (Hill Center, Busch) [Contact: Computer Science, cs@rutgers.edu]
+     * @return the textual representation of an event
+     */
+    @Override
+    public String toString() {
+        Timeslot endTime = null; //this.startTime.addMinutes(this.duration);
+        return "[Event Date: " + date + "] [Start: " + startTime + "] [End: " + endTime +
+                "] @" + location.getRoom() + " (" + location.getBuilding() + ", " + location.getCampus() +
+                ") [Contact: " + contact.getDepartment() + ", " + contact.getEmail() + "]";
+    }
+
+    /**
+     * This method compares 2 events.
+     */
+    @Override
+    public int compareTo(Event event) {
+        return 0;
+    }
+
+
+    /**
+     * Testbed main to exercise the equals() method.
+     * @param args command line arguments.
+     */
+    public static void main(String[] args) {
+        //run tests
+    }
 }
