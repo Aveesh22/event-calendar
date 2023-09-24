@@ -12,6 +12,14 @@ public class Event implements Comparable<Event>
     private Contact contact; //include the department name and email
     private int duration; //in minutes
 
+    public Event(Date date, Timeslot startTime, Location location, Contact contact, int duration) {
+        this.date = date;
+        this.startTime = startTime;
+        this.location = location;
+        this.contact = contact;
+        this.duration = duration;
+    }
+
     /**
      * Overrides the equals() method in the Object class such that 2 events
      * are equal if their dates, timeslots, and locations are equal.
@@ -44,11 +52,23 @@ public class Event implements Comparable<Event>
     }
 
     /**
-     * This method compares 2 events.
+     * This method compares 2 events first by their dates, then by timeslots.
+     * @return -1, 0, or 1
      */
     @Override
     public int compareTo(Event event) {
-        return 0;
+        if ((this.date.compareTo(event.date)) > 0)
+            return 1;
+        else if ((this.date.compareTo(event.date)) < 0)
+            return -1;
+        else {
+            if ((this.startTime.compareTo(event.startTime)) > 0)
+                return 1;
+            else if ((this.startTime.compareTo(event.startTime)) < 0)
+                return -1;
+            else
+                return 0;
+        }
     }
 
 
