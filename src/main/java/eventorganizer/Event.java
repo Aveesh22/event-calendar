@@ -1,7 +1,7 @@
 package eventorganizer;
 
 /**
- * This class defines ...
+ * This class defines an Event on the EventCalendar.
  * @author Patryk Dziedzic, Aveesh Patel
  */
 public class Event implements Comparable<Event>
@@ -31,16 +31,16 @@ public class Event implements Comparable<Event>
 
     /**
      * Overrides the toString() method to return a textual representation of an event.
-     * of an event in the following format:
-     * [Event Date: 10/21/2023] [Start: 2:00pm] [End: 3:00pm] @HLL114 (Hill Center, Busch) [Contact: Computer Science, cs@rutgers.edu]
      * @return the textual representation of an event
      */
     @Override
     public String toString() {
-        Timeslot endTime = null; //this.startTime.addMinutes(this.duration);
-        return "[Event Date: " + date + "] [Start: " + startTime + "] [End: " + endTime +
-                "] @" + location.getRoom() + " (" + location.getBuilding() + ", " + location.getCampus() +
-                ") [Contact: " + contact.getDepartment() + ", " + contact.getEmail() + "]";
+        Timeslot endTime = addMinutes(startTime, duration);
+        assert endTime != null;
+        return "[Event Date: " + date.toString() + "] [Start: " + startTime.toString() + "] " +
+                "[End: " + endTime.toString() + "] @" + location.name() + " " +
+                "(" + location.getBuilding() + ", " + location.getCampus() + ") " +
+                "[Contact: " + contact.getDepartment().getFullName() + ", " + contact.getEmail() + "]";
     }
 
     /**
@@ -50,6 +50,21 @@ public class Event implements Comparable<Event>
     public int compareTo(Event event) {
         return 0;
     }
+
+
+
+
+
+    /**
+     * This method adds minutes to the current timeslot time
+     * @param duration amount of minutes to add
+     * @return new Timeslot
+     */
+    private static Timeslot addMinutes(Timeslot startTime, int duration) {
+        return startTime;
+    }
+
+
 
 
     /**

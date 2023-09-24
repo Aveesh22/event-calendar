@@ -9,6 +9,11 @@ public class Contact
     private Department department;
     private String email;
 
+    Contact (Department department) {
+        this.department = department;
+        this.email = department.name().toLowerCase() + "@rutgers.edu";
+    }
+
     public Department getDepartment() {
         return department;
     }
@@ -17,5 +22,5 @@ public class Contact
         return email;
     }
 
-    public boolean isValid()
+    public boolean isValid() {}
 }
