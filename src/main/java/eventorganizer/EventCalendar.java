@@ -11,9 +11,31 @@ public class EventCalendar
 
     public EventCalendar()
     {
-
         numEvents = events.length;
     }
+
+    public EventCalendar(Event[] events)
+    {
+        this.events = events;
+        this.numEvents = events.length;
+    }
+
+    public Event[] getEvents() {
+        return events;
+    }
+
+    public int getNumEvents() {
+        return numEvents;
+    }
+
+    public void setEvents(Event[] events) {
+        this.events = events;
+    }
+
+    public void setNumEvents() {
+        this.numEvents = events.length;
+    }
+
     private int find(Event event) //search an event in the list
     {
         int index = -1;
@@ -56,12 +78,57 @@ public class EventCalendar
 
     public void print() //print the array as is
     {
-        for(int i = 0; i < events.length; i++)
-        {
-            System.out.println(events[i]);
+        if (numEvents > 0) {
+            System.out.println("* eventorganizer.Event calendar *");
+            for (int i = 0; i < numEvents; i++) {
+                System.out.println(events[i].toString());
+            }
+            System.out.println("* end of event calendar *");
+        }
+        else {
+            System.out.println("eventorganizer.Event calendar is empty!");
         }
     }
-    public void printByDate() { } //ordered by date and timeslot
-    public void printByCampus() { } //ordered by campus and building/room
-    public void printByDepartment(){ } //ordered by department
+
+    /**
+     * ordered by date and timeslot
+     */
+    public void printByDate() {
+        /**
+         * POSSIBLE LOGIC:
+         * - clone the calendar into a new calendar object
+         * - sort the clone's events array
+         * - call clone.print() to print as is (bc it will be sorted)
+         */
+        //things to consider: do we want a helper method for the sorting algorithm?
+        //sorting algorithm must be in-place and written ourselves
+        //IN-PLACE --> quicksort (implementation from data structures)
+        //if quicksort is too annoying to implement, insertion sort is fine (also in-place)
+
+        Event[] clonedEvents = events.clone();
+        Quicksort.sort(clonedEvents);
+
+        EventCalendar clonedCalendar = new EventCalendar(clonedEvents);
+        clonedCalendar.print();
+
+        //still haven't implemented how exactly it's sorted... just copy-pasted sort code
+    }
+
+    /**
+     * ordered by campus and building/room
+     */
+    public void printByCampus() {
+
+    }
+
+    /**
+     * ordered by department
+     */
+    public void printByDepartment() {
+
+    }
+
+
+
+
 }

@@ -45,10 +45,12 @@ public class Event implements Comparable<Event>
     public String toString() {
         Timeslot endTime = addMinutes(startTime, duration);
         assert endTime != null;
-        return "[Event Date: " + date.toString() + "] [Start: " + startTime.toString() + "] " +
-                "[End: " + endTime.toString() + "] @" + location.name() + " " +
+        return "[eventorganizer.Event eventorganizer.Date:: " + date.toString() + "]" +
+                "[Start: " + startTime.toString() + "] " + "[End: " + endTime.toString() + "]" +
+                "@" + location.name() + " " +
                 "(" + location.getBuilding() + ", " + location.getCampus() + ") " +
-                "[Contact: " + contact.getDepartment().getFullName() + ", " + contact.getEmail() + "]";
+                "[eventorganizer.Contact: " + contact.getDepartment().getFullName() +
+                ", " + contact.getEmail() + "]";
     }
 
     /**

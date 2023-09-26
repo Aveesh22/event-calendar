@@ -1,7 +1,7 @@
 package eventorganizer;
 
 /**
- * This class defines ...
+ * This class defines a Date for an Event
  * @author Patryk Dziedzic, Aveesh Patel
  */
 public class Date implements Comparable<Date>
