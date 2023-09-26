@@ -12,27 +12,6 @@ public class EventOrganizer
     private EventCalendar calendar = new EventCalendar();
 
 
-    /**
-     * Prints the events in Event [] events;
-     * @return
-     */
-    private static String printEvents(Event[] events, int numEvents) {
-        if (numEvents > 0) {
-            StringBuilder sb = new StringBuilder();
-            sb.append("* eventorganizer.Event calendar *");
-            for (int i = 0; i < numEvents; i++) {
-                Event currEvent = events[i];
-                sb.append(currEvent.toString());
-            }
-            sb.append("* end of event calendar *");
-            return sb.toString();
-        }
-        else {
-            return "eventorganizer.Event calendar is empty!";
-        }
-    }
-
-
 
     /**
      * Runs the A command:
@@ -69,10 +48,15 @@ public class EventOrganizer
      * @return The String output for the console.
      */
     private String cmdP(String[] cmd) {
-        Event[] events = calendar.getEvents().clone();
-        int numEvents = events.length;
+        if (calendar.getNumEvents() > 0) {
+            System.out.println("* eventorganizer.Event calendar *");
+            calendar.print();
+            System.out.println("* end of event calendar *");
+        }
+        else
+            System.out.println("eventorganizer.Event calendar is empty!");
 
-        return printEvents(calendar.getEvents().clone(), calendar.getNumEvents());
+        return "output";
     }
 
     /**
@@ -82,12 +66,10 @@ public class EventOrganizer
      * @return The String output for the console.
      */
     private String cmdPE(String[] cmd) {
-        Event[] events = calendar.getEvents().clone();
-        int numEvents = events.length;
+        //how can we use the code in cmdP without copy-pasting??
+        //all we need to do is change the calendar.print() to calendar.printByDate() or by campus etc.
 
-        //events = events.sort(based on date and then time --> compareTo);
-
-        return printEvents(events, numEvents);
+        return "output";
     }
 
     /**

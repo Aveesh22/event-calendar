@@ -79,7 +79,6 @@ public class EventCalendar
     public void print() //print the array as is
     {
         if (numEvents > 0) {
-            System.out.println("* eventorganizer.Event calendar *");
             for (int i = 0; i < numEvents; i++) {
                 System.out.println(events[i].toString());
             }
@@ -112,6 +111,7 @@ public class EventCalendar
         clonedCalendar.print();
 
         //still haven't implemented how exactly it's sorted... just copy-pasted sort code
+        //need to implement compareTo somewhere I think
     }
 
     /**
