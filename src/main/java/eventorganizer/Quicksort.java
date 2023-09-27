@@ -4,7 +4,6 @@ package eventorganizer;
  * CS112 Data Structures implementation of Quicksort.
  */
 public class Quicksort {
-
     private static boolean less(Comparable v, Comparable w) {
         return v.compareTo(w) < 0;
     }
@@ -14,7 +13,6 @@ public class Quicksort {
         a[i] = a[j];
         a[j] = temp;
     }
-
 
     private static int partition(Comparable[] a, int lo, int hi) {
         int i = lo, j = hi + 1;
