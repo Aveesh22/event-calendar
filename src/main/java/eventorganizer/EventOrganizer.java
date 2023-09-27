@@ -21,6 +21,7 @@ public class EventOrganizer
      * @return The String output for the console.
      */
     private String cmdA(String[] cmd) {
+        /*
         Date date = new Date(cmd[1]);
         Timeslot timeslot = new Timeslot(cmd[2]);
         Location location = new Location(cmd[3]);
@@ -28,6 +29,7 @@ public class EventOrganizer
         int duration = Integer.parseInt(cmd[6]);
         Event event = new Event(cmd[1], cmd[2], cmd[3], contact, duration);
         calendar.add(event);
+         */
         return "eventorganizer.Event added to the calendar.";
     }
 

@@ -22,5 +22,7 @@ public class Contact
         return email;
     }
 
-    public boolean isValid() {}
+    public boolean isValid() {
+        return false;
+    }
 }
