@@ -20,19 +20,23 @@ public class EventCalendar
         this.numEvents = events.length;
     }
 
-    public Event[] getEvents() {
+    public Event[] getEvents()
+    {
         return events;
     }
 
-    public int getNumEvents() {
+    public int getNumEvents()
+    {
         return numEvents;
     }
 
-    public void setEvents(Event[] events) {
+    public void setEvents(Event[] events)
+    {
         this.events = events;
     }
 
-    public void setNumEvents() {
+    public void setNumEvents()
+    {
         this.numEvents = events.length;
     }
 
@@ -59,12 +63,33 @@ public class EventCalendar
     }
     public boolean add(Event event)
     {
-        
+        for(int i = events.length-2; i > 0; i--)
+        {
+            if(events[i] != null && events[i+1] == null)
+            {
+                events[i+1] = event;
+                return true;
+            }
+        }
 
+        if(events[events.length-1] != null)
+            grow();
+
+        return false;
     }
     public boolean remove(Event event)
     {
-
+        int len = events.length;
+        for(int i = 0; i < len; i++)
+        {
+            if(events[i].equals(event))
+            {
+                len = events.length-1;
+                events[i] = events[i+1];
+                return true;
+            }
+        }
+        return false;
     }
     public boolean contains(Event event)
     {
