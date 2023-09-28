@@ -1,7 +1,6 @@
 package eventorganizer;
 
 import java.util.Calendar;
-import java.util.Scanner;
 
 /**
  * This class defines a Date for an Event
@@ -13,12 +12,11 @@ public class Date implements Comparable<Date>
     private int month;
     private int day;
 
-
-
     public static final int QUADRENNIAL = 4;
     public static final int CENTENNIAL = 100;
     public static final int QUARTERCENTENNIAL = 400;
-    public static final int monthOffset = 1;
+    public static final int MONTH_OFFSET = 1;
+    public static final int MAX_MONTH = 12; //Calendar class has 0-index months
 
 
 
@@ -39,7 +37,7 @@ public class Date implements Comparable<Date>
     public Date() {
         Calendar cal = Calendar.getInstance();
         year = cal.get(Calendar.YEAR);
-        month = cal.get(Calendar.MONTH);
+        month = cal.get(Calendar.MONTH) + MONTH_OFFSET;
         day = cal.get(Calendar.DATE);
     }
 
@@ -59,7 +57,22 @@ public class Date implements Comparable<Date>
      */
     @Override
     public int compareTo(Date date) {
-        return 0;
+        //year
+        if (this.year > date.year)
+            return 1;
+        else if (this.year < date.year)
+            return -1;
+        else {
+            //month
+            if (this.month > date.month)
+                return 1;
+            else if (this.month < date.month)
+                return -1;
+            else {
+                //day
+                return Integer.compare(this.day, date.day);
+            }
+        }
     }
 
     /**
@@ -72,56 +85,55 @@ public class Date implements Comparable<Date>
 
 
     /**
-     * Check if this date object is a valid calendar date.
-     * - Month must be in range
-     * - Date must be in range for the corresponding month
-     * - February must be 29 if it is a leap year
-     * @return
+     * Checks if this Date object is a valid calendar date.
+     * - year must be in range
+     * - month must be in range
+     * - day must be in range for the corresponding month
+     * - February must be at most 29 if it is a leap year, 28 otherwise
+     * @return true if the Date object is valid, false otherwise
      */
     public boolean isValid() {
-        Calendar cal = Calendar.getInstance();
-        int calMonth = month - monthOffset;
-        cal.set(year, calMonth, day);
-
-        //if month out of range
-        if (calMonth < Calendar.JANUARY || calMonth > Calendar.DECEMBER) {
-            return false;
-        }
-
-        //if day is out of month range
-        if (day < 1 || day > cal.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-            return false;
-        }
-        //^ for some reason fails test 4
-        /*
-        //if it's February, check if it's a leap year and the day accordingly
-        if (calMonth == Calendar.FEBRUARY) {
-            if (isLeap()) {
-                if (day > cal.getActualMaximum(Calendar.DAY_OF_MONTH)) //have to figure out how to check if out of range of month
-                    return false;
-                else return true;
-            }
-            else {
-                //if ()
-                //    return false;
-                //else return true;
-            }
-        }
-        else {
-            //if the month is a big month (31 days)
-            if (isBigMonth(calMonth)) {
-
-            }
-            else {
-
-            }
-        }
-         */
-        return true;
+        return validYear() && validMonth() && validDay();
     }
 
     /**
-     * Check if this date object's year is a leap year.
+     * Checks if this Date object's year is valid.
+     * @return true if the year is 4 digits
+     */
+    private boolean validYear() {
+        int numDigits = String.valueOf(year).length();
+        return numDigits == 4;
+    }
+
+    /**
+     * Checks if this Date object's month is valid.
+     * @return true if the month is between 1 and MAX_MONTH
+     */
+    private boolean validMonth() {
+        return month >= 1 && month <= MAX_MONTH;
+    }
+
+    /**
+     * Checks if this Date object's day is valid.
+     * @return true if the day is valid for the corresponding month
+     */
+    private boolean validDay() {
+        for (Month month: Month.values()) {
+            if (this.month == month.getMonthNumber()) {
+                if (this.month == Month.FEBRUARY_LEAP.getMonthNumber()) {
+                    if (isLeap()) {
+                        return day >= 1 && day <= Month.FEBRUARY_LEAP.getTotalDays();
+                    }
+                    else return day >= 1 && day <= Month.FEBRUARY_NONLEAP.getTotalDays();
+                }
+                return day >= 1 && day <= month.getTotalDays();
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if this date object's year is a leap year.
      * @return true if it is a leap year, false otherwise
      */
     private boolean isLeap() {
@@ -141,12 +153,10 @@ public class Date implements Comparable<Date>
     }
 
     /**
-     * Return today's date.
+     * Get today's date.
+     * @return today's date
      */
     public static Date today() { return new Date(); }
-
-
-
 
 
 
@@ -161,25 +171,6 @@ public class Date implements Comparable<Date>
         testDaysInFeb_Leap();
         testMonth_OutOfRange();
         testDay_OutOfRange();
-
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.print("Enter Month: ");
-//        int inputMonth = scanner.nextInt(); System.out.println();
-//        while (inputMonth != -20) {
-//            int m = inputMonth - monthOffset;
-//
-//            Calendar cal = Calendar.getInstance();
-//            cal.set(2020, m, 20);
-//
-//            //if month out of range
-//            if (m < Calendar.JANUARY || m > Calendar.DECEMBER) {
-//                System.out.println("month is out of bounds");
-//            }
-//
-//            System.out.print("Enter Month: ");
-//            inputMonth = scanner.nextInt(); System.out.println();
-//        }
-        System.out.println("done");
     }
 
     /**
@@ -208,8 +199,8 @@ public class Date implements Comparable<Date>
      * Test Case #3
      */
     private static void testMonth_OutOfRange() {
-        Date date = new Date("2/29/2023");
-        boolean expectedOutput = true;
+        Date date = new Date("13/29/2023");
+        boolean expectedOutput = false;
         boolean actualOutput = date.isValid();
         System.out.println("**Test case #3: # of months in a year is 12.");
         testResult(date, expectedOutput, actualOutput);
@@ -232,15 +223,12 @@ public class Date implements Comparable<Date>
      * @param actualOutput actual output
      */
     private static void testResult(Date date, boolean expectedOutput, boolean actualOutput) {
-        System.out.println("Date: " + date.toString());
+        System.out.println("Test Input: " + date.toString());
         System.out.println("Expected Output: " + expectedOutput);
-        System.out.println("Actual Output: " + actualOutput);
+        System.out.print("Actual Output: " + actualOutput);
         if (expectedOutput == actualOutput)
-            System.out.println("PASS");
+            System.out.println(" (PASS)\n");
         else
-            System.out.println("FAIL");
-
-        for (int i = 0; i < 75; i++) System.out.print("*");
-        System.out.println();
+            System.out.println(" (FAIL)\n");
     }
 }
