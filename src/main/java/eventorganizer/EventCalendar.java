@@ -1,23 +1,25 @@
 package eventorganizer;
 
 /**
- * This class defines ...
+ * This class defines an EventCalendar for organizing Events.
  * @author Patryk Dziedzic, Aveesh Patel
  */
 public class EventCalendar
 {
-    private Event [] events; //the array holding the list of events
+    private Event[] events; //the array holding the list of events
     private int numEvents; //current number of events in the array
+    public static final int NOT_FOUND = -1;
 
     public EventCalendar()
     {
-        numEvents = events.length;
+        events = new Event[4];
+        setNumEvents();
     }
 
     public EventCalendar(Event[] events)
     {
         this.events = events;
-        this.numEvents = events.length;
+        setNumEvents();
     }
 
     public Event[] getEvents()
@@ -37,65 +39,100 @@ public class EventCalendar
 
     public void setNumEvents()
     {
-        this.numEvents = events.length;
+        int i = 0;
+        for (Event event : events) {
+            if (event != null)
+                i++;
+        }
+        this.numEvents = i;
     }
 
-    private int find(Event event) //search an event in the list
+    /**
+     * Search for an Event in the list
+     * @param event the Event to search for
+     * @return the index of the Event or -1 if not found
+     */
+    private int find(Event event)
     {
-        int index = -1;
         for(int i = 0; i < events.length; i++)
         {
             if(events[i].equals(event))
             {
-                index = i;
+                return i;
             }
         }
-        return index;
+        return NOT_FOUND;
     }
-    private void grow() //increase the capacity by 4
+
+    /**
+     * Increase the capacity of events by 4
+     */
+    private void grow()
     {
-        Event[] temp = new Event[numEvents+4];
+        Event[] temp = new Event[numEvents + 4];
         for(int i = 0; i < events.length; i++)
         {
             temp[i] = events[i];
         }
         events = temp;
+        setNumEvents();
     }
+
+    /**
+     * Add an Event to the events list
+     * @param event the Event to add
+     * @return true if the Event was added successfully
+     */
     public boolean add(Event event)
     {
+        boolean addSuccess = false;
+
         for(int i = events.length-2; i > 0; i--)
         {
             if(events[i] != null && events[i+1] == null)
             {
                 events[i+1] = event;
-                return true;
+                addSuccess = true;
             }
         }
 
         if(events[events.length-1] != null)
             grow();
 
-        return false;
+        setNumEvents();
+        return addSuccess;
     }
+
+    /**
+     * Remove an Event from the events list
+     * @param event the Event to remove
+     * @return true if the Event was removed successfully
+     */
     public boolean remove(Event event)
     {
-        int len = events.length;
-        for(int i = 0; i < len; i++)
-        {
-            if(events[i].equals(event))
-            {
-                len = events.length-1;
-                events[i] = events[i+1];
-                return true;
+        int index = find(event);
+        if (index != NOT_FOUND) {
+            int i = index;
+            while (events[i] != null && i != numEvents) {
+                events[i] = events[i + 1];
+                i++;
             }
+            setNumEvents();
+            return true;
         }
-        return false;
+        else
+            return false;
     }
+
+    /**
+     * Checks if the events list contains the Event
+     * @param event the Event to search for
+     * @return true if the Event was found
+     */
     public boolean contains(Event event)
     {
-        for(int i = 0; i < events.length; i++)
-        {
-            if(events[i].equals(event))
+        for (Event e : events) {
+            if (e.equals(event))
                 return true;
         }
         return false;
