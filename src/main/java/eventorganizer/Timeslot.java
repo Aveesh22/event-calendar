@@ -1,7 +1,7 @@
 package eventorganizer;
 
 /**
- * This enum class defines the possible timeslots for an event.
+ * This enum class defines the possible timeslots for an Event.
  * @author Patryk Dziedzic, Aveesh Patel
  */
 public enum Timeslot {

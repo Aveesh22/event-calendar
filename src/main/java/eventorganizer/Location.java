@@ -1,7 +1,7 @@
 package eventorganizer;
 
 /**
- * This enum class defines the locations an event can be hosted.
+ * This enum class defines the locations an Event can be hosted.
  * @author Patryk Dziedzic, Aveesh Patel
  */
 public enum Location {

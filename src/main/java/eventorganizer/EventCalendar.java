@@ -87,16 +87,14 @@ public class EventCalendar
     {
         boolean addSuccess = false;
 
-        for(int i = events.length-2; i > 0; i--)
-        {
-            if(events[i] != null && events[i+1] == null)
-            {
-                events[i+1] = event;
+        for (int i = events.length - 2; i > 0; i--) {
+            if (events[i] != null && events[i + 1] == null) {
+                events[i + 1] = event;
                 addSuccess = true;
             }
         }
 
-        if(events[events.length-1] != null)
+        if (events[events.length - 1] != null)
             grow();
 
         setNumEvents();
@@ -185,8 +183,5 @@ public class EventCalendar
     public void printByDepartment() {
 
     }
-
-
-
 
 }

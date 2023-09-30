@@ -11,7 +11,20 @@ public class EventOrganizer
     private String currLine; //current line being parsed
     private EventCalendar calendar = new EventCalendar();
 
-
+    /**
+     * Get the corresponding Enum constant to the given string
+     * @param values array of constant names in the Enum class
+     * @param name the name of the constant to find
+     * @return the Enum constant
+     */
+    public Object getEnumValue(Object[] values, String name) {
+        for (Object obj : values) {
+            if (obj.toString().equalsIgnoreCase(name)) { //case-insensitive
+                return obj;
+            }
+        }
+        return null;
+    }
 
     /**
      * Runs the A command:
@@ -21,16 +34,29 @@ public class EventOrganizer
      * @return The String output for the console.
      */
     private String cmdA(String[] cmd) {
-        /*
-        Date date = new Date(cmd[1]);
-        Timeslot timeslot = new Timeslot(cmd[2]);
-        Location location = new Location(cmd[3]);
-        Contact contact = new Contact(Department.CS); //cs for now as a placeholder
-        int duration = Integer.parseInt(cmd[6]);
-        Event event = new Event(cmd[1], cmd[2], cmd[3], contact, duration);
-        calendar.add(event);
-         */
-        return "eventorganizer.Event added to the calendar.";
+        //Date
+        Date date = new Date(cmd[Command.DATE.getIndex()]);
+        //Timeslot
+        Timeslot timeslot = (Timeslot) getEnumValue(Timeslot.values(), cmd[Command.TIME.getIndex()]);
+        //Location
+        Location location = (Location) getEnumValue(Location.values(), cmd[Command.ROOM.getIndex()]);
+        //Contact
+        Department department = (Department) getEnumValue(Department.values(), cmd[Command.DEPARTMENT.getIndex()]);
+        Contact contact = new Contact(department, cmd[Command.EMAIL.getIndex()]);
+        //Duration
+        int duration = Integer.parseInt(cmd[Command.DURATION.getIndex()]);
+
+        //Instantiate Event
+        Event event = new Event(date, timeslot, location, contact, duration);
+
+        if (eventisValid()) { //need to check conditions before adding an event
+            if (calendar.add(event))
+                return "eventorganizer.Event added to the calendar.";
+            else
+                return "unable to add";
+        }
+        else
+            return "not valid";
     }
 
     /**
@@ -101,7 +127,7 @@ public class EventOrganizer
      * @return The String output for the console.
      */
     private String runCmd(String[] cmd) {
-        String output = switch (cmd[0]) {
+        String output = switch (cmd[Command.COMMAND.getIndex()]) {
             case "A" -> cmdA(cmd);
             case "R" -> cmdR(cmd);
             case "P" -> cmdP(cmd);

@@ -98,11 +98,10 @@ public class Date implements Comparable<Date>
 
     /**
      * Checks if this Date object's year is valid.
-     * @return true if the year is 4 digits
+     * @return true if the year is after 1900
      */
     private boolean validYear() {
-        int numDigits = String.valueOf(year).length();
-        return numDigits == 4;
+        return year > 1900;
     }
 
     /**
