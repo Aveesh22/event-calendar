@@ -17,7 +17,7 @@ public class EventOrganizer
      * @param name the name of the constant to find
      * @return the Enum constant
      */
-    public Object getEnumValue(Object[] values, String name) {
+    private Object getEnumValue(Object[] values, String name) {
         for (Object obj : values) {
             if (obj.toString().equalsIgnoreCase(name)) { //case-insensitive
                 return obj;
