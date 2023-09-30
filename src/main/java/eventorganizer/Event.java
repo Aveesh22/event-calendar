@@ -55,15 +55,42 @@ public class Event implements Comparable<Event>
     @Override
     public String toString()
     {
-        //Timeslot endTime = addMinutes(startTime, duration);
-
-        //assert endTime != null;
+        String endTime = calculateEndTime(startTime, duration);
+        assert endTime != null;
         return "[eventorganizer.Event eventorganizer.Date:: " + date.toString() + "]" +
-                "[Start: " + startTime.toString() + "] " + "[End: " + //endTime.toString() + "]" +
+                "[Start: " + startTime.toString() + "] " + "[End: " + endTime + "]" +
                 "@" + location.name() + " " +
                 "(" + location.getBuilding() + ", " + location.getCampus() + ") " +
                 "[eventorganizer.Contact: " + contact.getDepartment().getFullName() +
                 ", " + contact.getEmail() + "]";
+    }
+
+    public String calculateEndTime(Timeslot startTime, int duration)
+    {
+        int hour = startTime.getHour();
+        int min = startTime.getMinute() + duration;
+        boolean amPM = startTime.name().equals("MORNING");
+        while(min >= 60)
+        {
+            if(hour == 11)
+                amPM = !amPM;
+
+            if(hour == 12)
+            {
+                hour = 1;
+                min -= 60;
+                continue;
+            }
+
+            hour += 1;
+            min -= 60;
+        }
+
+        if(amPM)
+            return (hour + ":" + String.format("%02d", min) + "am");
+
+        else
+            return (hour + ":" + String.format("%02d", min) + "pm");
     }
 
     /**
@@ -88,11 +115,6 @@ public class Event implements Comparable<Event>
                 return 0;
         }
     }
-
-
-
-
-
 
     /**
      * Testbed main to test methods in the Event class

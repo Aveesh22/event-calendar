@@ -97,7 +97,7 @@ public class EventOrganizer
         //how can we use the code in cmdP without copy-pasting??
         //all we need to do is change the calendar.print() to calendar.printByDate() or by campus etc.
 
-        return "output";
+        return calendar.printByDate();
     }
 
     /**
@@ -106,8 +106,9 @@ public class EventOrganizer
      * @param cmd The current input line as a String array of tokens
      * @return The String output for the console.
      */
-    private String cmdPC(String[] cmd) {
-        return "output";
+    private String cmdPC(String[] cmd)
+    {
+        return calendar.printByCampus();
     }
 
     /**
@@ -117,7 +118,7 @@ public class EventOrganizer
      * @return The String output for the console.
      */
     private String cmdPD(String[] cmd) {
-        return "output";
+        return calendar.printByDepartment();
     }
 
     /**
@@ -127,7 +128,8 @@ public class EventOrganizer
      * @return The String output for the console.
      */
     private String runCmd(String[] cmd) {
-        String output = switch (cmd[Command.COMMAND.getIndex()]) {
+        String output = switch (cmd[Command.COMMAND.getIndex()])
+        {
             case "A" -> cmdA(cmd);
             case "R" -> cmdR(cmd);
             case "P" -> cmdP(cmd);

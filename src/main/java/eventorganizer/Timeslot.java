@@ -28,8 +28,8 @@ public enum Timeslot {
     @Override
     public String toString() {
         if (name().equals("MORNING"))
-            return hour + ":" + minute + "am";
+            return hour + ":" + String.format("%02d", minute) + "am";
         else
-            return hour + ":" + minute + "pm";
+            return hour + ":" + String.format("%02d", minute) + "pm";
     }
 }
