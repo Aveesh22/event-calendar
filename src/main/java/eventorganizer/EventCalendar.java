@@ -152,36 +152,27 @@ public class EventCalendar
      * ordered by date and timeslot
      */
     public void printByDate() {
-        //POSSIBLE LOGIC:
-        //- clone the calendar into a new calendar object
-        //- sort the clone's events array
-        //- call clone.print() to print as is (bc it will be sorted)
-
-        //sorting algorithm must be in-place and written ourselves
-        //IN-PLACE --> quicksort (implementation from data structures)
-        //if quicksort is too annoying to implement, insertion sort is fine (also in-place)
-
-        Event[] clonedEvents = events.clone();
-        Quicksort.sort(clonedEvents);
-        //right now it sorts based on date and time by the default compareTo in Event
-        //how to implement sorting based on campus and department...?
-
-        EventCalendar clonedCalendar = new EventCalendar(clonedEvents);
-        clonedCalendar.print();
+        Quicksort qs = new Quicksort(Sort.DATE);
+        qs.sort(events);
+        print();
     }
 
     /**
      * ordered by campus and building/room
      */
     public void printByCampus() {
-
+        Quicksort qs = new Quicksort(Sort.CAMPUS);
+        qs.sort(events);
+        print();
     }
 
     /**
      * ordered by department
      */
     public void printByDepartment() {
-
+        Quicksort qs = new Quicksort(Sort.DEPARTMENT);
+        qs.sort(events);
+        print();
     }
 
 }

@@ -70,56 +70,38 @@ public class EventOrganizer
     }
 
     /**
-     * Runs the P command:
+     * Runs the P, PE, PC, or PD command:
      * Displays the event calendar on the console.
      * @param cmd The current input line as a String array of tokens
      * @return The String output for the console.
      */
     private String cmdP(String[] cmd) {
         if (calendar.getNumEvents() > 0) {
-            System.out.println("* eventorganizer.Event calendar *");
-            calendar.print();
-            System.out.println("* end of event calendar *");
+            switch (cmd[Command.COMMAND.getIndex()]) {
+                case "PE":
+                    System.out.println("* eventorganizer.Event calendar by event date and start time *");
+                    calendar.printByDate();
+                    break;
+                case "PC":
+                    System.out.println("* eventorganizer.Event calendar by campus and building *");
+                    calendar.printByCampus();
+                    break;
+                case "PD":
+                    System.out.println("* eventorganizer.Event calendar by department *");
+                    calendar.printByDepartment();
+                    break;
+                default:
+                    System.out.println("* eventorganizer.Event calendar *");
+                    calendar.print();
+                    break;
+            }
+            return "* end of event calendar *";
         }
         else
-            System.out.println("eventorganizer.Event calendar is empty!");
-
-        return "output";
+            return "eventorganizer.Event calendar is empty!";
     }
 
-    /**
-     * Runs the PE command:
-     * Displays the event calendar sorted by time on the console.
-     * @param cmd The current input line as a String array of tokens
-     * @return The String output for the console.
-     */
-    private String cmdPE(String[] cmd) {
-        //how can we use the code in cmdP without copy-pasting??
-        //all we need to do is change the calendar.print() to calendar.printByDate() or by campus etc.
 
-        return calendar.printByDate();
-    }
-
-    /**
-     * Runs the PC command:
-     * Displays the event calendar sorted by room on the console.
-     * @param cmd The current input line as a String array of tokens
-     * @return The String output for the console.
-     */
-    private String cmdPC(String[] cmd)
-    {
-        return calendar.printByCampus();
-    }
-
-    /**
-     * Runs the PD command:
-     * Displays the event calendar sorted by department on the console.
-     * @param cmd The current input line as a String array of tokens
-     * @return The String output for the console.
-     */
-    private String cmdPD(String[] cmd) {
-        return calendar.printByDepartment();
-    }
 
     /**
      * Assuming the input is not blank, we run the command corresponding
@@ -128,17 +110,13 @@ public class EventOrganizer
      * @return The String output for the console.
      */
     private String runCmd(String[] cmd) {
-        String output = switch (cmd[Command.COMMAND.getIndex()])
+        return switch (cmd[Command.COMMAND.getIndex()])
         {
             case "A" -> cmdA(cmd);
             case "R" -> cmdR(cmd);
-            case "P" -> cmdP(cmd);
-            case "PE" -> cmdPE(cmd);
-            case "PC" -> cmdPC(cmd);
-            case "PD" -> cmdPD(cmd);
+            case "P", "PE", "PC", "PD" -> cmdP(cmd);
             default -> cmd[0] + "is an invalid command!";
         };
-        return output;
     }
 
 
@@ -157,10 +135,8 @@ public class EventOrganizer
         while (currLine.charAt(0) != 'Q') {
             if (!currLine.isBlank()) {
                 String[] cmd = currLine.split("\\s+");
-                String output = runCmd(cmd);
-                System.out.println(output);
+                System.out.println(runCmd(cmd));
             }
-
             currLine = scanner.nextLine();
         }
 

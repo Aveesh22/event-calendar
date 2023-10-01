@@ -29,6 +29,26 @@ public class Event implements Comparable<Event>
         this.duration = duration;
     }
 
+    public Date getDate() {
+        return date;
+    }
+
+    public Timeslot getStartTime() {
+        return startTime;
+    }
+
+    public Location getLocation() {
+        return location;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
     /**
      * Overrides the equals() method in the Object class such that 2 events
      * are equal if their dates, timeslots, and locations are equal.
