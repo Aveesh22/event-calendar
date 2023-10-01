@@ -165,7 +165,10 @@ public class Date implements Comparable<Date>
      * Get today's date.
      * @return today's date
      */
-    public static Date today() { return new Date(); }
+    public static Date today()
+    {
+        return new Date();
+    }
 
 
 

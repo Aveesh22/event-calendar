@@ -87,9 +87,17 @@ public class EventCalendar
     {
         boolean addSuccess = false;
 
-        for (int i = events.length - 2; i > 0; i--) {
-            if (events[i] != null && events[i + 1] == null) {
+        for (int i = events.length - 2; i > 0; i--)
+        {
+            if(events[i] != null && events[i + 1] == null)
+            {
                 events[i + 1] = event;
+                addSuccess = true;
+            }
+
+            if(i == 0 && events[i] == null)
+            {
+                events[i] = event;
                 addSuccess = true;
             }
         }

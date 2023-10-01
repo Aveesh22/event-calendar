@@ -11,8 +11,6 @@ public class EventOrganizer
     private EventCalendar calendar = new EventCalendar();
     private final int FAR_MONTHS = 6;
 
-
-
     /**
      * Runs the A command:
      * Adds an event to the event calendar.
@@ -152,13 +150,6 @@ public class EventOrganizer
         return conflict;
     }
 
-
-
-
-
-
-
-
     /**
      * Runs the R command:
      * Cancels and removes an event from the event calendar.
@@ -237,7 +228,7 @@ public class EventOrganizer
             case "A" -> cmdA(cmd);
             case "R" -> cmdR(cmd);
             case "P", "PE", "PC", "PD" -> cmdP(cmd);
-            default -> System.out.println(cmd[0] + "is an invalid command!");
+            default -> System.out.println(cmd[0] + " is an invalid command!");
         };
     }
 
@@ -248,12 +239,14 @@ public class EventOrganizer
     /**
      * Reads and parses user input commands.
      */
-    public void run() {
+    public void run()
+    {
         System.out.println("Event Organizer running...");
         System.out.println();
 
         Scanner scanner = new Scanner(System.in);
         String currLine = scanner.nextLine();
+
         while (currLine.charAt(0) != 'Q') {
             if (!currLine.isBlank()) {
                 String[] cmd = currLine.split("\\s+");
