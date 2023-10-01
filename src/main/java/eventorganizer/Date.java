@@ -50,7 +50,17 @@ public class Date implements Comparable<Date>
         day = date.day;
     }
 
+    public int getYear() {
+        return year;
+    }
 
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
+    }
 
     /**
      * This method compares 2 dates.
