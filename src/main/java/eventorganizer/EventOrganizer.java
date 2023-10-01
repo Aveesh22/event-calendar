@@ -78,9 +78,16 @@ public class EventOrganizer
 
     private boolean isFuture(Event event) {
         Date today = Date.today();
-        boolean result = event.getDate().getYear() >= today.getYear() &&
-                event.getDate().getMonth() >= today.getMonth() &&
-                event.getDate().getDay() >= today.getDay();
+        boolean result;
+        if (event.getDate().getYear() == today.getYear()) { //year == current year
+            if (event.getDate().getMonth() == today.getMonth()) {
+                result = event.getDate().getDay() > today.getDay();
+            }
+            else
+                result = event.getDate().getMonth() > today.getMonth();
+        }
+        else
+            result = event.getDate().getYear() > today.getYear(); //year > current year
 
         if (!result) {
             System.out.println(event.getDate().toString() + ": eventorganizer.Event date must be a future date!");
@@ -90,9 +97,23 @@ public class EventOrganizer
 
     private boolean isFar(Event event) {
         Date today = Date.today();
-        boolean result = event.getDate().getYear() >= today.getYear() &&
-                event.getDate().getMonth() >= today.getMonth() + FAR_MONTHS &&
-                event.getDate().getDay() >= today.getDay();
+        boolean result = false;
+        if (event.getDate().getYear() == today.getYear()) { //year == current year
+            if (event.getDate().getMonth() == today.getMonth() + FAR_MONTHS) {
+                result = event.getDate().getDay() > today.getDay();
+            }
+            else
+                result = event.getDate().getMonth() > today.getMonth() + FAR_MONTHS;
+        }
+        else if (event.getDate().getYear() > today.getYear()) { //year > current year
+            if (event.getDate().getYear() == today.getYear() + 1) {
+                int eventMonth = event.getDate().getMonth();
+                int monthsLeftCurrYear = Month.DECEMBER.getMonthNumber() - eventMonth;
+                int totalMonths = monthsLeftCurrYear + eventMonth;
+                result = totalMonths >= FAR_MONTHS;
+            }
+            else result = event.getDate().getYear() > today.getYear() + 1;
+        }
 
         if (!result) {
             System.out.println(event.getDate().toString() +
@@ -249,8 +270,11 @@ public class EventOrganizer
 
         while (currLine.charAt(0) != 'Q') {
             if (!currLine.isBlank()) {
-                String[] cmd = currLine.split("\\s+");
-                runCmd(cmd);
+                String[] commands = currLine.split("\\n+");
+                for (String command : commands) {
+                    String[] cmd = command.split("\\s+");
+                    runCmd(cmd);
+                }
             }
             currLine = scanner.nextLine();
         }
