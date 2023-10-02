@@ -27,9 +27,9 @@ public enum Timeslot {
 
     public String getName(int hour, int min)
     {
-        if(hour == 10 && min == 30)
+        if(hour == MORNING.hour && min == MORNING.minute)
             return "MORNING";
-        else if(hour == 2 && min == 0)
+        else if(hour == AFTERNOON.hour && min == AFTERNOON.minute)
             return "AFTERNOON";
         else
             return "EVENING";

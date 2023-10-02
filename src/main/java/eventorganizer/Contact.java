@@ -9,6 +9,8 @@ public class Contact
     private Department department;
     private String email;
 
+    private final String emailDomain = "rutgers.edu";
+
     Contact (Department department, String email) {
         this.department = department;
         this.email = email;
@@ -16,7 +18,7 @@ public class Contact
 
     Contact (Department department) {
         this.department = department;
-        this.email = department.name().toLowerCase() + "@rutgers.edu";
+        this.email = department.name().toLowerCase() + "@" + emailDomain;
     }
 
     public Department getDepartment() {
@@ -59,7 +61,19 @@ public class Contact
      * @return true if the email is correct for this department
      */
     public boolean isValidEmail() {
-        return email.equals(new Contact(department).getEmail());
+        if (email.isEmpty())
+            return false;
+
+        String[] emailSplit = email.split("\\@");
+        if (emailSplit.length != 2)
+            return false;
+
+        for (Department dep : Department.values()) {
+            if (emailSplit[0].equalsIgnoreCase(dep.name())) {
+                return emailSplit[1].equals(emailDomain);
+            }
+        }
+        return false;
     }
 
 

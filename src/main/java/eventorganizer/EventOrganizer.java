@@ -33,7 +33,7 @@ public class EventOrganizer
         //Instantiate Event
         Event event = new Event(date, timeslot, location, contact, duration);
 
-        if (eventIsValid(event) && calendar.add(event)) //need to check conditions before adding an event
+        if (eventIsValidAdd(event) && calendar.add(event)) //need to check conditions before adding an event
             System.out.println("eventorganizer.Event added to the calendar.");
     }
 
@@ -65,10 +65,10 @@ public class EventOrganizer
     }
 
     /**
-     * Checks if an event is valid
+     * Checks if an event is valid to add
      * @param event the event to check
      */
-    private boolean eventIsValid(Event event) {
+    private boolean eventIsValidAdd(Event event) {
         return isValidDate(event) &&
                 isFuture(event) &&
                 !isFar(event) &&
@@ -120,14 +120,14 @@ public class EventOrganizer
         else if (event.getDate().getYear() > today.getYear()) { //year > current year
             if (event.getDate().getYear() == today.getYear() + 1) {
                 int eventMonth = event.getDate().getMonth();
-                int monthsLeftCurrYear = Month.DECEMBER.getMonthNumber() - eventMonth;
+                int monthsLeftCurrYear = Month.DECEMBER.getMonthNumber() - today.getMonth();
                 int totalMonths = monthsLeftCurrYear + eventMonth;
                 result = totalMonths >= FAR_MONTHS;
             }
             else result = event.getDate().getYear() > today.getYear() + 1;
         }
 
-        if (!result) {
+        if (result) {
             System.out.println(event.getDate().toString() +
                     ": eventorganizer.Event date must be within 6 months!");
         }
@@ -135,6 +135,11 @@ public class EventOrganizer
     }
 
     private boolean isValidTimeslot(Event event) {
+        if (event.getStartTime() == null) {
+            System.out.println("Invalid time slot!");
+            return false;
+        }
+
         for (Timeslot ts : Timeslot.values()) {
             if (event.getStartTime().equals(ts))
                 return true;
@@ -153,6 +158,11 @@ public class EventOrganizer
     }
 
     private boolean isValidLocation(Event event) {
+        if (event.getLocation() == null) {
+            System.out.println("Invalid location!");
+            return false;
+        }
+
         for (Location l : Location.values()) {
             if (event.getLocation().equals(l))
                 return true;
@@ -174,7 +184,7 @@ public class EventOrganizer
         if(calendar.getNumEvents() == 0)
             return false;
         for (Event e : calendar.getEvents()) {
-            if (e.compareTo(event) == 0) {
+            if (e != null && e.compareTo(event) == 0) {
                 if (e.getLocation().equals(event.getLocation())) {
                     conflict = true;
                     System.out.println("The event is already on the calendar.");
@@ -198,26 +208,40 @@ public class EventOrganizer
         //Location
         Location location = (Location) getEnumValue(Location.values(), cmd[Command.ROOM.getIndex()]);
 
-        if (!date.isValid()) {
-            System.out.println(date.toString() + ": Invalid calendar date!");
-            return;
-        }
+        //Instantiate Event
+        Event event = new Event(date, timeslot, location);
 
-        boolean eventFound = false;
-        for (Event e : calendar.getEvents()) {
-            if (e.getDate().compareTo(date) == 0 &&
-                e.getStartTime().equals(timeslot) &&
-                e.getLocation().equals(location))
-            {
-                calendar.remove(e);
-                eventFound = true;
-                System.out.println("eventorganizer.Event has been removed from the calendar!");
-                break;
+        if (eventIsValidRemove(event)) {
+            boolean eventFound = false;
+            for (Event e : calendar.getEvents()) {
+                if (e != null &&
+                        e.getDate().compareTo(date) == 0 &&
+                        e.getStartTime().equals(timeslot) &&
+                        e.getLocation().equals(location)) {
+                    if (calendar.remove(e)) {
+                        eventFound = true;
+                        System.out.println("eventorganizer.Event has been removed from the calendar!");
+                        break;
+                    }
+                }
             }
+            if (!eventFound)
+                System.out.println("Cannot remove; event is not in the calendar!");
         }
-        if (!eventFound)
-            System.out.println("Cannot remove; event is not in the calendar!");
     }
+
+    /**
+     * Checks if an event is valid to remove
+     * @param event the event to check
+     */
+    private boolean eventIsValidRemove(Event event) {
+        return isValidDate(event) &&
+                isFuture(event) &&
+                !isFar(event) &&
+                isValidTimeslot(event) &&
+                isValidLocation(event);
+    }
+
 
     /**
      * Runs the P, PE, PC, or PD command:
@@ -282,13 +306,16 @@ public class EventOrganizer
         Scanner scanner = new Scanner(System.in);
         String currLine = scanner.nextLine();
 
-        while (currLine.charAt(0) != 'Q') {
+        while (true) {
             if (!currLine.isBlank()) {
-                String[] commands = currLine.split("\\n+");
-                for (String command : commands) {
-                    String[] cmd = command.split("\\s+");
-                    runCmd(cmd);
+                if (currLine.charAt(0) != 'Q') {
+                    String[] commands = currLine.split("\\n+");
+                    for (String command : commands) {
+                        String[] cmd = command.split("\\s+");
+                        runCmd(cmd);
+                    }
                 }
+                else break;
             }
             currLine = scanner.nextLine();
         }

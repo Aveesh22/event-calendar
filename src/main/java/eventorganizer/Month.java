@@ -4,7 +4,7 @@ public enum Month {
     JANUARY (1, 31),
     FEBRUARY_NONLEAP (2, 28),
     FEBRUARY_LEAP (2, 29),
-    MARCH (6, 31),
+    MARCH (3, 31),
     APRIL (4, 30),
     MAY (5, 31),
     JUNE (6, 30),

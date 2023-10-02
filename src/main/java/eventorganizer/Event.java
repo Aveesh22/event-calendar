@@ -29,6 +29,19 @@ public class Event implements Comparable<Event>
         this.duration = duration;
     }
 
+    /** Event class constructor which instantiates the
+     * date, startTime, and location
+     * @param date the Date of the Event
+     * @param startTime the startTime of the Event
+     * @param location the location the Event takes place
+     */
+    public Event(Date date, Timeslot startTime, Location location)
+    {
+        this.date = date;
+        this.startTime = startTime;
+        this.location = location;
+    }
+
     public Date getDate() {
         return date;
     }
@@ -77,8 +90,8 @@ public class Event implements Comparable<Event>
     {
         String endTime = calculateEndTime(startTime, duration);
         assert endTime != null;
-        return "[eventorganizer.Event eventorganizer.Date:: " + date.toString() + "]" +
-                "[Start: " + startTime.toString() + "] " + "[End: " + endTime + "]" +
+        return "[eventorganizer.Event eventorganizer.Date: " + date.toString() + "] " +
+                "[Start: " + startTime.toString() + "] " + "[End: " + endTime + "] " +
                 "@" + location.name() + " " +
                 "(" + location.getBuilding() + ", " + location.getCampus() + ") " +
                 "[eventorganizer.Contact: " + contact.getDepartment().getFullName() +
