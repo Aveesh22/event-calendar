@@ -10,6 +10,8 @@ public class EventCalendar
     private int numEvents; //current number of events in the array
     public static final int NOT_FOUND = -1;
 
+    public static final int GROWTH_RATE = 4;
+
     public EventCalendar()
     {
         events = new Event[4];
@@ -69,7 +71,7 @@ public class EventCalendar
      */
     private void grow()
     {
-        Event[] temp = new Event[numEvents + 4];
+        Event[] temp = new Event[numEvents + GROWTH_RATE];
         for(int i = 0; i < events.length; i++)
         {
             temp[i] = events[i];
@@ -144,6 +146,10 @@ public class EventCalendar
         return false;
     }
 
+    /**
+     * print the Event Calendar as is; ordered by the specific commands
+     * ran on the events array
+     */
     public void print() //print the array as is
     {
         if (numEvents > 0) {
@@ -157,7 +163,7 @@ public class EventCalendar
     }
 
     /**
-     * ordered by date and timeslot
+     * print the Event Calendar ordered by date and timeslot
      */
     public void printByDate() {
         Quicksort q = new Quicksort(Sort.DATE);
@@ -166,7 +172,7 @@ public class EventCalendar
     }
 
     /**
-     * ordered by campus and building/room
+     * print the Event Calendar ordered by campus and building/room
      */
     public void printByCampus() {
         Quicksort qs = new Quicksort(Sort.CAMPUS);
@@ -175,7 +181,7 @@ public class EventCalendar
     }
 
     /**
-     * ordered by department
+     * print the Event Calendar ordered by department
      */
     public void printByDepartment() {
         Quicksort qs = new Quicksort(Sort.DEPARTMENT);

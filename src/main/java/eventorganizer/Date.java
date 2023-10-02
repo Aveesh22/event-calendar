@@ -43,6 +43,7 @@ public class Date implements Comparable<Date>
 
     /**
      * A copy constructor that clones a date object.
+     * @param date the Date to be cloned
      */
     public Date(Date date) {
         year = date.year;
@@ -50,20 +51,33 @@ public class Date implements Comparable<Date>
         day = date.day;
     }
 
+    /**
+     * Gets the year of the given Date
+     * @return an integer representing the specific year of the Date
+     */
     public int getYear() {
         return year;
     }
 
+    /**
+     * Gets the month of the given Date
+     * @return an integer representing the specific month of the Date
+     */
     public int getMonth() {
         return month;
     }
 
+    /**
+     * Gets the day of the given Date
+     * @return an integer representing the specific day of the Date
+     */
     public int getDay() {
         return day;
     }
 
     /**
      * This method compares 2 dates.
+     * @return an integer -1, 0, or 1
      */
     @Override
     public int compareTo(Date date) {
@@ -90,9 +104,10 @@ public class Date implements Comparable<Date>
      * @return date as string
      */
     @Override
-    public String toString() { return month + "/" + day + "/" + year; }
-
-
+    public String toString()
+    {
+        return month + "/" + day + "/" + year;
+    }
 
     /**
      * Checks if this Date object is a valid calendar date.
@@ -102,7 +117,8 @@ public class Date implements Comparable<Date>
      * - February must be at most 29 if it is a leap year, 28 otherwise
      * @return true if the Date object is valid, false otherwise
      */
-    public boolean isValid() {
+    public boolean isValid()
+    {
         return validYear() && validMonth() && validDay();
     }
 
@@ -110,7 +126,8 @@ public class Date implements Comparable<Date>
      * Checks if this Date object's year is valid.
      * @return true if the year is after 1900
      */
-    private boolean validYear() {
+    private boolean validYear()
+    {
         return year > 1900;
     }
 
@@ -170,21 +187,6 @@ public class Date implements Comparable<Date>
         return new Date();
     }
 
-
-
-
-
-    /**
-     * Testbed main to exercise the isValid() method.
-     * @param args command line arguments.
-     */
-    public static void main(String[] args) {
-        testDaysInFeb_NonLeap();
-        testDaysInFeb_Leap();
-        testMonth_OutOfRange();
-        testDay_OutOfRange();
-    }
-
     /**
      * Test Case #1
      */
@@ -242,5 +244,16 @@ public class Date implements Comparable<Date>
             System.out.println(" (PASS)\n");
         else
             System.out.println(" (FAIL)\n");
+    }
+
+    /**
+     * Testbed main to exercise the isValid() method.
+     * @param args command line arguments.
+     */
+    public static void main(String[] args) {
+        testDaysInFeb_NonLeap();
+        testDaysInFeb_Leap();
+        testMonth_OutOfRange();
+        testDay_OutOfRange();
     }
 }

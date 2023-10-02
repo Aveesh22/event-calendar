@@ -11,6 +11,10 @@ public class EventOrganizer
     private EventCalendar calendar = new EventCalendar();
     private final int FAR_MONTHS = 6;
 
+    public static final int MIN_DURATION = 30;
+
+    public static final int MAX_DURATION = 120;
+
     /**
      * Runs the A command:
      * Adds an event to the event calendar.
@@ -150,7 +154,7 @@ public class EventOrganizer
 
     private boolean isValidDuration(Event event) {
         int duration = event.getDuration();
-        boolean result = duration >= 30 && duration <= 120;
+        boolean result = duration >= MIN_DURATION && duration <= MAX_DURATION;
         if (!result) {
             System.out.println("eventorganizer.Event duration must be at least 30 minutes and at most 120 minutes");
         }

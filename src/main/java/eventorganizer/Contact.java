@@ -11,16 +11,29 @@ public class Contact
 
     private final String emailDomain = "rutgers.edu";
 
+    /**
+     * Overloaded constructor for the Contact class which initializes the department and email variables
+     * @param department the department to be initialized
+     * @param email the email to be initialized
+     */
     Contact (Department department, String email) {
         this.department = department;
         this.email = email;
     }
 
+    /**
+     * Overloaded constructor for the Contact class which initializes the department variables
+     * @param department the department to be initialized
+     */
     Contact (Department department) {
         this.department = department;
         this.email = department.name().toLowerCase() + "@" + emailDomain;
     }
 
+    /**
+     * Gets the department of the contact
+     * @return a Department variable representing the department of the contact
+     */
     public Department getDepartment() {
         return department;
     }

@@ -14,11 +14,20 @@ public enum Command {
 
     private final int index;
 
+    /**
+     * Constructor for the command class which initializes the index variable
+     * @param index the index to be initialized
+     */
     Command(int index) {
         this.index = index;
     }
 
-    public int getIndex() {
+    /**
+     * Returns the index of a given enum
+     * @return the index of the given enum
+     */
+    public int getIndex()
+     {
         return index;
     }
 }

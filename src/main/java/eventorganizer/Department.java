@@ -13,11 +13,21 @@ public enum Department {
 
     private final String fullName;
 
-    Department (String fullName) {
+    /**
+     * Parameterized constructor that initializes the fullName variable
+     * @param fullName the variable to be initialized with the full name of the department
+     */
+    Department (String fullName)
+    {
         this.fullName = fullName;
     }
 
-    public String getFullName() {
+    /**
+     * Gets the full name of the department
+     * @return a String depicting the full name of the department
+     */
+    public String getFullName()
+    {
         return fullName;
     }
 }

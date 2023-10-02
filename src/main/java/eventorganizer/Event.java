@@ -42,23 +42,44 @@ public class Event implements Comparable<Event>
         this.location = location;
     }
 
+    /**
+     * Get the Date of the Event
+     * @return the Date of the Event
+     */
     public Date getDate() {
         return date;
     }
 
+    /**
+     * Get the start time of the Event
+     * @return a Timeslot object depicting the start time of the Event
+     */
     public Timeslot getStartTime() {
         return startTime;
     }
 
+    /**
+     * Get the location of the Event
+     * @return a Location object depicting the location of the Event
+     */
     public Location getLocation() {
         return location;
     }
 
+    /**
+     * Get the contact associated with the Event
+     * @return a Contact object depicting the contact for the Event
+     */
     public Contact getContact() {
         return contact;
     }
 
-    public int getDuration() {
+    /**
+     * Get the duration of the Event
+     * @return an integer representing the duration of the Event
+     */
+    public int getDuration()
+    {
         return duration;
     }
 
@@ -98,6 +119,13 @@ public class Event implements Comparable<Event>
                 ", " + contact.getEmail() + "]";
     }
 
+    /**
+     * Given a Timeslot and duration of an event, the method returns
+     * a textual representation of the end time of the provided event
+     * @param startTime the Timeslot object which contains a start time for the event
+     * @param duration an integer depicting the number of minutes the event will last
+     * @return a textual representation of the end time of the Event
+     */
     public String calculateEndTime(Timeslot startTime, int duration)
     {
         int hour = startTime.getHour();
@@ -165,8 +193,11 @@ public class Event implements Comparable<Event>
         int duration1 = 80;
         Event event1 = new Event(date, startTime, location1, contact, duration1);
         Event event2 = new Event(date, startTime, location2, contact, duration1);
-        Event event3 = new Event(d, startTime, location1, contact, duration1);
+        Event event3 = new Event(date, startTime, location1, contact, duration1);
+        Event event4 = new Event(d, startTime, location1, contact, duration1);
         System.out.println(event1.equals(event2));
+        System.out.println(event1.equals(event3));
         System.out.println(event1.compareTo(event3));
+        System.out.println(event2.compareTo(event4));
     }
 }
