@@ -12,19 +12,39 @@ public enum Timeslot {
     private final int hour;
     private final int minute;
 
+    /**
+     * Constructor to create the Timeslot object
+     * with the given hour and minute.
+     * @param hour the hour of the time
+     * @param minute the minute of the time
+     */
     Timeslot(int hour, int minute) {
         this.hour = hour;
         this.minute = minute;
     }
 
+    /**
+     * Get the hour of this timeslot
+     * @return the hour
+     */
     public int getHour() {
         return hour;
     }
 
+    /**
+     * Get the minute of this timeslot
+     * @return the minute
+     */
     public int getMinute() {
         return minute;
     }
 
+    /**
+     * Get the name of this timeslot
+     * @param hour the hour
+     * @param min the minute
+     * @return the String name
+     */
     public String getName(int hour, int min)
     {
         if(hour == MORNING.hour && min == MORNING.minute)
@@ -35,6 +55,10 @@ public enum Timeslot {
             return "EVENING";
     }
 
+    /**
+     * Format the timeslot to a string with a colon and am/pm.
+     * @return the formatted time as a String
+     */
     @Override
     public String toString() {
         if (name().equals("MORNING"))

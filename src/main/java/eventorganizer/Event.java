@@ -257,7 +257,8 @@ public class Event implements Comparable<Event>
     }
 
     /**
-     * Check if a given test case is PASS or FAIL given 2 boolean outputs.
+     * Check if a given test case is PASS or FAIL given 2 outputs.
+     * Overloaded - given boolean outputs
      * @param expectedOutput expected output
      * @param actualOutput actual output
      */
@@ -274,7 +275,8 @@ public class Event implements Comparable<Event>
     }
 
     /**
-     * Check if a given test case is PASS or FAIL given 2 int outputs.
+     * Check if a given test case is PASS or FAIL given 2 outputs.
+     * Overloaded - given int outputs
      * @param expectedOutput expected output
      * @param actualOutput actual output
      */

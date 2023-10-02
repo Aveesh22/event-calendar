@@ -38,6 +38,10 @@ public class Contact
         return department;
     }
 
+    /**
+     * Get the email of the contact
+     * @return the String email
+     */
     public String getEmail() {
         return email;
     }
@@ -88,6 +92,4 @@ public class Contact
         }
         return false;
     }
-
-
 }

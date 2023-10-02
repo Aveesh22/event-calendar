@@ -16,7 +16,7 @@ public class EventOrganizer
     public static final int MAX_DURATION = 120;
 
     /**
-     * Runs the A command:
+     * Run the A command:
      * Adds an event to the event calendar.
      * We can assume the user will always enter enough data tokens.
      * @param cmd The current input line as a String array of tokens
@@ -69,7 +69,7 @@ public class EventOrganizer
     }
 
     /**
-     * Checks if an event is valid to add
+     * Check if an event is valid to add.
      * @param event the event to check
      */
     private boolean eventIsValidAdd(Event event) {
@@ -84,6 +84,11 @@ public class EventOrganizer
                 !isConflict(event);
     }
 
+    /**
+     * Check if an event has a valid date.
+     * @param event the event to check.
+     * @return true if the date is valid.
+     */
     private boolean isValidDate(Event event) {
         boolean result = event.getDate().isValid();
         if (!result) {
@@ -92,6 +97,11 @@ public class EventOrganizer
         return result;
     }
 
+    /**
+     * Check if an event's date is a future date.
+     * @param event the event to check.
+     * @return true if the date is a future date.
+     */
     private boolean isFuture(Event event) {
         Date today = Date.today();
         boolean result;
@@ -111,6 +121,11 @@ public class EventOrganizer
         return result;
     }
 
+    /**
+     * Check if an event's date is more than FAR_MONTHS away.
+     * @param event the event to check.
+     * @return true if the date is too far.
+     */
     private boolean isFar(Event event) {
         Date today = Date.today();
         boolean result = false;
@@ -138,6 +153,11 @@ public class EventOrganizer
         return result;
     }
 
+    /**
+     * Check if an event has a valid timeslot.
+     * @param event the event to check.
+     * @return true if the timeslot exists.
+     */
     private boolean isValidTimeslot(Event event) {
         if (event.getStartTime() == null) {
             System.out.println("Invalid time slot!");
@@ -152,6 +172,11 @@ public class EventOrganizer
         return false;
     }
 
+    /**
+     * Check if an event has a valid duration.
+     * @param event the event to check.
+     * @return true if the duration is between MIN_DURATION and MAX_DURATION.
+     */
     private boolean isValidDuration(Event event) {
         int duration = event.getDuration();
         boolean result = duration >= MIN_DURATION && duration <= MAX_DURATION;
@@ -161,6 +186,11 @@ public class EventOrganizer
         return result;
     }
 
+    /**
+     * Check if an event has a valid location.
+     * @param event the event to check.
+     * @return true if the location exists.
+     */
     private boolean isValidLocation(Event event) {
         if (event.getLocation() == null) {
             System.out.println("Invalid location!");
@@ -175,6 +205,11 @@ public class EventOrganizer
         return false;
     }
 
+    /**
+     * Check if an event has a valid contact.
+     * @param event the event to check.
+     * @return true if the department and email are valid.
+     */
     private boolean isValidContact(Event event) {
         boolean result = event.getContact().isValid();
         if (!result) {
@@ -183,6 +218,11 @@ public class EventOrganizer
         return result;
     }
 
+    /**
+     * Check if there is a conflict with the given event.
+     * @param event the event to check.
+     * @return true if there is a conflict on the calendar.
+     */
     private boolean isConflict(Event event) {
         boolean conflict = false;
         if(calendar.getNumEvents() == 0)
@@ -200,7 +240,7 @@ public class EventOrganizer
     }
 
     /**
-     * Runs the R command:
+     * Run the R command:
      * Cancels and removes an event from the event calendar.
      * @param cmd The current input line as a String array of tokens
      */
@@ -235,8 +275,8 @@ public class EventOrganizer
     }
 
     /**
-     * Checks if an event is valid to remove
-     * @param event the event to check
+     * Check if an event is valid to remove.
+     * @param event the event to check.
      */
     private boolean eventIsValidRemove(Event event) {
         return isValidDate(event) &&
@@ -248,7 +288,7 @@ public class EventOrganizer
 
 
     /**
-     * Runs the P, PE, PC, or PD command:
+     * Run the P, PE, PC, or PD command:
      * Displays the event calendar on the console.
      * @param cmd The current input line as a String array of tokens
      */
@@ -300,7 +340,7 @@ public class EventOrganizer
 
 
     /**
-     * Reads and parses user input commands.
+     * Read and parse user input commands.
      */
     public void run()
     {

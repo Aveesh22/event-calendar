@@ -2,6 +2,7 @@ package eventorganizer;
 
 /**
  * Enum class to describe indices for the array of tokens in an A command.
+ * @author Patryk Dziedzic, Aveesh Patel
  */
 public enum Command {
     COMMAND (0),

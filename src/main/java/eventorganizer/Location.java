@@ -15,15 +15,29 @@ public enum Location {
     private final String building;
     private final String campus;
 
+    /**
+     * Constructor to create the Location object
+     * with the given building and campus.
+     * @param building the building for the event
+     * @param campus the campus for the event
+     */
     Location (String building, String campus) {
         this.building = building;
         this.campus = campus;
     }
 
+    /**
+     * Get the building of the location
+     * @return the building name as a String
+     */
     public String getBuilding() {
         return building;
     }
 
+    /**
+     * Get the campus of the location
+     * @return the campus name as a String
+     */
     public String getCampus() {
         return campus;
     }

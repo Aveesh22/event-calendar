@@ -12,33 +12,49 @@ public class EventCalendar
 
     public static final int GROWTH_RATE = 4;
 
+    /**
+     * A default constructor that creates an event calendar
+     * starting with size GROWTH_RATE.
+     */
     public EventCalendar()
     {
-        events = new Event[4];
+        events = new Event[GROWTH_RATE];
         setNumEvents();
     }
 
+    /**
+     * A parameterized constructor that creates an event calendar
+     * based on a given array of events.
+     * @param events the array of events
+     */
     public EventCalendar(Event[] events)
     {
         this.events = events;
         setNumEvents();
     }
 
+    /**
+     * Get the array of events
+     * @return the events array
+     */
     public Event[] getEvents()
     {
         return events;
     }
 
+    /**
+     * Get the number of events in the calendar
+     * @return the number of events as an int
+     */
     public int getNumEvents()
     {
         return numEvents;
     }
 
-    public void setEvents(Event[] events)
-    {
-        this.events = events;
-    }
-
+    /**
+     * Set the numEvents variable to be the amount of
+     * events in the events array.
+     */
     public void setNumEvents()
     {
         int i = 0;
