@@ -43,9 +43,21 @@ public class EventOrganizer
      * @param name the name of the constant to find
      * @return the Enum constant
      */
-    private Object getEnumValue(Object[] values, String name) {
-        for (Object obj : values) {
-            if (obj.toString().equalsIgnoreCase(name)) { //case-insensitive
+    private Object getEnumValue(Object[] values, String name)
+    {
+        for (Object obj : values)
+        {
+            if(obj instanceof Timeslot)
+            {
+                int hour = ((Timeslot) obj).getHour();
+                int min = ((Timeslot) obj).getMinute();
+                String nameOfTimeslot = ((Timeslot) obj).getName(hour, min);
+                if(nameOfTimeslot.equalsIgnoreCase(name))
+                    return obj;
+            }
+
+            if (obj.toString().equalsIgnoreCase(name))
+            {
                 return obj;
             }
         }
@@ -159,6 +171,8 @@ public class EventOrganizer
 
     private boolean isConflict(Event event) {
         boolean conflict = false;
+        if(calendar.getNumEvents() == 0)
+            return false;
         for (Event e : calendar.getEvents()) {
             if (e.compareTo(event) == 0) {
                 if (e.getLocation().equals(event.getLocation())) {

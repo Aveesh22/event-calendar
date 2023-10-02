@@ -25,6 +25,16 @@ public enum Timeslot {
         return minute;
     }
 
+    public String getName(int hour, int min)
+    {
+        if(hour == 10 && min == 30)
+            return "MORNING";
+        else if(hour == 2 && min == 0)
+            return "AFTERNOON";
+        else
+            return "EVENING";
+    }
+
     @Override
     public String toString() {
         if (name().equals("MORNING"))
