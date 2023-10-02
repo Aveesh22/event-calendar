@@ -178,11 +178,67 @@ public class Event implements Comparable<Event>
     }
 
     /**
-     * Testbed main to test methods in the Event class
-     * @param args command line arguments.
+     * Test Case #1
      */
-    public static void main(String[] args)
-    {
+    private static void testEquals_True() {
+        Date date = new Date("01/01/1999");
+        Timeslot startTime = Timeslot.MORNING;
+        Location location = Location.AB2225;
+        Department department = Department.CS;
+        Contact contact = new Contact(department);
+        int duration = 80;
+        Event event1 = new Event(date, startTime, location, contact, duration);
+        Event event2 = new Event(date, startTime, location, contact, duration);
+
+        boolean expectedOutput = true;
+        boolean actualOutput = event1.equals(event2);
+        System.out.println("**Test case #1: Two events are equal.");
+        testResult(event1, event2, expectedOutput, actualOutput);
+    }
+
+    /**
+     * Test Case #2
+     */
+    private static void testEquals_False() {
+        Date date = new Date("01/01/1999");
+        Timeslot startTime = Timeslot.MORNING;
+        Location location1 = Location.AB2225;
+        Location location2 = Location.TIL232;
+        Department department = Department.CS;
+        Contact contact = new Contact(department);
+        int duration = 80;
+        Event event1 = new Event(date, startTime, location1, contact, duration);
+        Event event2 = new Event(date, startTime, location2, contact, duration);
+
+        boolean expectedOutput = false;
+        boolean actualOutput = event1.equals(event2);
+        System.out.println("**Test case #2: Two events are not equal.");
+        testResult(event1, event2, expectedOutput, actualOutput);
+    }
+
+    /**
+     * Test Case #3
+     */
+    private static void testCompareTo_Equal() {
+        Date date = new Date("01/01/1999");
+        Timeslot startTime = Timeslot.MORNING;
+        Location location = Location.AB2225;
+        Department department = Department.CS;
+        Contact contact = new Contact(department);
+        int duration = 80;
+        Event event1 = new Event(date, startTime, location, contact, duration);
+        Event event2 = new Event(date, startTime, location, contact, duration);
+
+        int expectedOutput = 0;
+        int actualOutput = event1.compareTo(event2);
+        System.out.println("**Test case #3: Two events are comparatively equal.");
+        testResult(event1, event2, expectedOutput, actualOutput);
+    }
+
+    /**
+     * Test Case #4
+     */
+    private static void testCompareTo_NotEqual() {
         Date date = new Date("01/01/1999");
         Date d = new Date("05/27/2000");
         Timeslot startTime = Timeslot.MORNING;
@@ -190,14 +246,59 @@ public class Event implements Comparable<Event>
         Location location2 = Location.TIL232;
         Department department = Department.CS;
         Contact contact = new Contact(department);
-        int duration1 = 80;
-        Event event1 = new Event(date, startTime, location1, contact, duration1);
-        Event event2 = new Event(date, startTime, location2, contact, duration1);
-        Event event3 = new Event(date, startTime, location1, contact, duration1);
-        Event event4 = new Event(d, startTime, location1, contact, duration1);
-        System.out.println(event1.equals(event2));
-        System.out.println(event1.equals(event3));
-        System.out.println(event1.compareTo(event3));
-        System.out.println(event2.compareTo(event4));
+        int duration = 80;
+        Event event1 = new Event(date, startTime, location1, contact, duration);
+        Event event2 = new Event(d, startTime, location2, contact, duration);
+
+        int expectedOutput = -1;
+        int actualOutput = event1.compareTo(event2);
+        System.out.println("**Test case #4: Event 1 comes first.");
+        testResult(event1, event2, expectedOutput, actualOutput);
+    }
+
+    /**
+     * Check if a given test case is PASS or FAIL given 2 boolean outputs.
+     * @param expectedOutput expected output
+     * @param actualOutput actual output
+     */
+    private static void testResult(Event event1, Event event2,
+                                   boolean expectedOutput, boolean actualOutput) {
+        System.out.println("Test Event 1: " + event1.toString());
+        System.out.println("Test Event 2: " + event2.toString());
+        System.out.println("Expected Output: " + expectedOutput);
+        System.out.print("Actual Output: " + actualOutput);
+        if (expectedOutput == actualOutput)
+            System.out.println(" (PASS)\n");
+        else
+            System.out.println(" (FAIL)\n");
+    }
+
+    /**
+     * Check if a given test case is PASS or FAIL given 2 int outputs.
+     * @param expectedOutput expected output
+     * @param actualOutput actual output
+     */
+    private static void testResult(Event event1, Event event2,
+                                   int expectedOutput, int actualOutput) {
+        System.out.println("Test Event 1: " + event1.toString());
+        System.out.println("Test Event 2: " + event2.toString());
+        System.out.println("Expected Output: " + expectedOutput);
+        System.out.print("Actual Output: " + actualOutput);
+        if (expectedOutput == actualOutput)
+            System.out.println(" (PASS)\n");
+        else
+            System.out.println(" (FAIL)\n");
+    }
+
+    /**
+     * Testbed main to test methods in the Event class
+     * @param args command line arguments.
+     */
+    public static void main(String[] args)
+    {
+        testEquals_True();
+        testEquals_False();
+        testCompareTo_Equal();
+        testCompareTo_NotEqual();
     }
 }

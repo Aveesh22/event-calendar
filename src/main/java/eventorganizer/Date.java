@@ -17,6 +17,9 @@ public class Date implements Comparable<Date>
     public static final int QUARTERCENTENNIAL = 400;
     public static final int MONTH_OFFSET = 1;
     public static final int MAX_MONTH = 12; //Calendar class has 0-index months
+    public static final int MONTH_INDEX = 0;
+    public static final int DAY_INDEX = 1;
+    public static final int YEAR_INDEX = 2;
 
 
 
@@ -26,9 +29,9 @@ public class Date implements Comparable<Date>
      */
     public Date(String date) {
         String[] tokens = date.split("/");
-        year = Integer.parseInt(tokens[2]);
-        month = Integer.parseInt(tokens[0]);
-        day = Integer.parseInt(tokens[1]);
+        year = Integer.parseInt(tokens[YEAR_INDEX]);
+        month = Integer.parseInt(tokens[MONTH_INDEX]);
+        day = Integer.parseInt(tokens[DAY_INDEX]);
     }
 
     /**
