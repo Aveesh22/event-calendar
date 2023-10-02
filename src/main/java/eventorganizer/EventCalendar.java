@@ -160,8 +160,8 @@ public class EventCalendar
      * ordered by date and timeslot
      */
     public void printByDate() {
-        Quicksort qs = new Quicksort(Sort.DATE);
-        qs.sort(events);
+        Quicksort q = new Quicksort(Sort.DATE);
+        q.sort(events);
         print();
     }
 

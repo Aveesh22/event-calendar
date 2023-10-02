@@ -16,7 +16,11 @@ public class Quicksort {
     }
     
     private boolean less(Event v, Event w) {
-        if (sortBy == Sort.DATE)
+        if (v != null && w == null)
+            return true;
+        else if (v == null)
+            return false;
+        else if (sortBy == Sort.DATE)
             return lessByDate(v, w);
         else if (sortBy == Sort.CAMPUS)
             return lessByCampus(v, w);
@@ -52,7 +56,8 @@ public class Quicksort {
     
     private boolean lessByDepartment(Event v, Event w) {
         int compareResult;
-        int compareDepartment = v.getContact().getDepartment().compareTo(w.getContact().getDepartment());
+        int compareDepartment =
+                v.getContact().getDepartment().name().compareTo(w.getContact().getDepartment().name());
 
         if (compareDepartment > 0)
             compareResult = 1;
@@ -64,8 +69,8 @@ public class Quicksort {
         return compareResult < 0;
     }
 
-    private void exch(Object[] a, int i, int j) {
-        Object temp = a[i];
+    private void exch(Event[] a, int i, int j) {
+        Event temp = a[i];
         a[i] = a[j];
         a[j] = temp;
     }
